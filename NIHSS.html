@@ -7,7 +7,7 @@
     <style>
         body { font-family: "Microsoft JhengHei", Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
         .item { margin-bottom: 20px; }
-        select { margin-bottom: 10px; }
+        select { margin-bottom: 10px; width: 100%; }
         button { margin-top: 20px; }
         #output { white-space: pre-wrap; }
     </style>
@@ -63,8 +63,7 @@
                     { value: 0, description: "正常" },
                     { value: 1, description: "部分偏盲" },
                     { value: 2, description: "完全偏盲:兩眼同側視野5度以上,看不見手指運動" },
-                    { value: 3, description: "兩側完全偏盲:不論任何原因單眼全盲時,以另一眼計分,兩眼偏盲程度不一致時,以較佳者計分
-" }
+                    { value: 3, description: "兩側完全偏盲:不論任何原因單眼全盲時,以另一眼計分,兩眼偏盲程度不一致時,以較佳者計分" }
                 ]
             },
             {
@@ -84,7 +83,7 @@
                     { value: 2, description: "無法抵抗加重力" },
                     { value: 3, description: "無法抵抗重力" },
                     { value: 4, description: "無法動彈" },
-                    { value: 0, description: "UN(96) 不計分=截肢,關節融合"}
+                    { value: 96, description: "UN 不計分=截肢,關節融合"}
                 ]
             },
             {
@@ -95,7 +94,7 @@
                     { value: 2, description: "無法抵抗加重力" },
                     { value: 3, description: "無法抵抗重力" },
                     { value: 4, description: "無法動彈" },
-                    { value: 0, description: "UN(96) 不計分=截肢,關節融合"}
+                    { value: 96, description: "UN 不計分=截肢,關節融合"}
                 ]
             },
             {
@@ -106,7 +105,7 @@
                     { value: 2, description: "無法抵抗加重力" },
                     { value: 3, description: "無法抵抗重力" },
                     { value: 4, description: "無法動彈" },
-                    { value: 0, description: "UN(96) 不計分=截肢,關節融合"}
+                    { value: 96, description: "UN 不計分=截肢,關節融合"}
                 ]
             },
             {
@@ -117,7 +116,7 @@
                     { value: 2, description: "無法抵抗加重力" },
                     { value: 3, description: "無法抵抗重力" },
                     { value: 4, description: "無法動彈" },
-                    { value: 0, description: "UN(96) 不計分=截肢,關節融合"}
+                    { value: 96, description: "UN 不計分=截肢,關節融合"}
                 ]
             },
             {
@@ -151,7 +150,7 @@
                     { value: 0, description: "正常" },
                     { value: 1, description: "輕至中度障礙:某些字發音不清楚,速度慢,但能理解" },
                     { value: 2, description: "完全無法構音:發音皆不清楚且無法理解,含完全失語症" },
-                    { value: 0, description: "on endo tube(不計分)"}
+                    { value: 96, description: "on endo tube(不計分)"}
                 ]
             },
             {
@@ -196,7 +195,9 @@
                 const select = document.getElementById(`item${index}`);
                 const score = parseInt(select.value);
                 const description = select.options[select.selectedIndex].text.split(' - ')[1];
-                totalScore += score;
+                if (score !== 96) { // Exclude UN(96) scores from the total
+                    totalScore += score;
+                }
                 results[item.name] = `${score} - ${description}`;
             });
             
